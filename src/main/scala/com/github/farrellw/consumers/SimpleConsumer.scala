@@ -33,12 +33,6 @@ object SimpleConsumer {
         // Retrieve the message from each record
         val message = record.value()
         println(s"Message Received: $message")
-
-        /*
-        // Debug Information
-          println(s"Key: ${record.key}. Value: ${record.value}")
-          println(s"Partition: ${record.partition}, Offset ${record.offset}")
-         */
       })
     }
   }
