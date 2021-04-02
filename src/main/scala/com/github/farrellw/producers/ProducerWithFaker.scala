@@ -10,43 +10,62 @@ import java.util.Properties
 
 case class User(name: String, username: String, email: String)
 
-object ProducerWithFaker extends App {
+object ProducerWithFaker {
   implicit val formats: DefaultFormats.type = DefaultFormats
-  // Set constants
   val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
   val Topic: String = "users"
 
-  // Set Properties to be used for Kafka Producer
-  val properties = new Properties
-  properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BootstrapServer)
-  properties.setProperty(ProducerConfig.ACKS_CONFIG, "1")
-  properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
-  properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
+  def main(args: Array[String]): Unit = {
 
-  //
-  // create the producer
-  val producer = new KafkaProducer[String, String](properties)
+    // Create the Kafka Producer
+    val properties = getProperties(BootstrapServer)
+    val producer = new KafkaProducer[String, String](properties)
 
-  val recordsToCreate = 10
-  val range = (1 to recordsToCreate).toList
-  range.map(id => {
-    val key = id.toString
-    val name = Name.name
-    val user = User(name, Internet.user_name(name), Internet.free_email(name))
-    val jsonString = write(user)
+    // create n fake records to send to topic
+    val recordsToCreate = 10
+    val range = (1 to recordsToCreate).toList
 
-    new ProducerRecord[String, String](Topic, key, jsonString)
-  }).foreach(record => {
+    range.map(id => {
+      val key = id.toString
 
-    producer.send(record, new Callback() {
-      override def onCompletion(recordMetadata: RecordMetadata, e: Exception): Unit = {
-        if (e == null) {
-          println(s"Received new metadata. \n Topic: ${recordMetadata.topic()} \n Partition: ${recordMetadata.partition()} \n Offset: ${recordMetadata.offset()} \n Timestamp: ${recordMetadata.timestamp()}")
+      // Use the faker library ( https://github.com/bitblitconsulting/scala-faker ) to generate Users
+      // User, as a case class, is defined at the top of this file
+      val name = Name.name
+      val user = User(name, Internet.user_name(name), Internet.free_email(name))
+
+      // write scala case class to a JSON string
+      val jsonString = write(user)
+
+      new ProducerRecord[String, String](Topic, key, jsonString)
+    }).foreach(record => {
+
+      // send records to topic
+      producer.send(record, new Callback() {
+        override def onCompletion(recordMetadata: RecordMetadata, e: Exception): Unit = {
+          if (e == null) {
+            println(
+              s"""
+                 |Sent Record: ${record.value()}
+                 |Topic: ${recordMetadata.topic()}
+                 |Partition: ${recordMetadata.partition()}
+                 |Offset: ${recordMetadata.offset()}
+                 |Timestamp: ${recordMetadata.timestamp()}
+          """.stripMargin)
+          } else println("Error while producing", e)
         }
-        else println("Error while producing", e)
-      }
+      })
     })
-  })
 
-  producer.close()
+    producer.close()
+  }
+
+  def getProperties(bootstrapServer: String): Properties = {
+    // Set Properties to be used for Kafka Producer
+    val properties = new Properties
+    properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer)
+    properties.setProperty(ProducerConfig.ACKS_CONFIG, "1")
+    properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
+    properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
+    properties
+  }
 }
