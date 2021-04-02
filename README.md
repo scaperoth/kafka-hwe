@@ -32,14 +32,6 @@ A topic exists called "question-5" with JSON strings as its messages. Using `JSO
 - Create a case class that matches this data structure.
 - Parse the JSON string into the scala case class that you created.
 
-### Stretch #1 - Build a system with a partner
-
-Find a partner who is also on the stretch portion.
-
-- Partner A:
-    - Choose a topic name ( e.g. my-fake-)
-- Publish Partner B:
-
-### Stretch #2 - Theory
+### Stretch #1 - Theory
 
 What is the CAP theorem, and where does Kafka fit within it?
