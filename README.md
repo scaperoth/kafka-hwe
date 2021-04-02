@@ -11,7 +11,7 @@ A topic exists called "question-1". Use the command line to describe the topic "
 
 ### Create a topic "question-2"
 
-Using the Kafka CLI, create a topic with 3 partitions and a replication factor of 2. Call the topic "
+Using the Kafka CLI, create a topic with 3 partitions and a replication factor of 3. Call the topic "
 question-2-yourname".
 
 ### Consume from "question-3"

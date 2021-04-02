@@ -9,7 +9,7 @@ import java.util.{Properties, UUID, Arrays}
 
 object SimpleConsumer {
   val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
-  val Topic: String = "change-me"
+  val Topic: String = "Change Me"
 
   implicit val formats: DefaultFormats.type = DefaultFormats
 
@@ -33,12 +33,6 @@ object SimpleConsumer {
         // Retrieve the message from each record
         val message = record.value()
         println(s"Message Received: $message")
-
-        /*
-        // Debug Information
-          println(s"Key: ${record.key}. Value: ${record.value}")
-          println(s"Partition: ${record.partition}, Offset ${record.offset}")
-         */
       })
     }
   }
