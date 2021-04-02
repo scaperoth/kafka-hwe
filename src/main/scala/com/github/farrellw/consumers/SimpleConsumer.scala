@@ -9,7 +9,7 @@ import java.util.{Properties, UUID, Arrays}
 
 object SimpleConsumer {
   val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
-  val Topic: String = "Change Me"
+  val Topic: String = "change-me"
 
   implicit val formats: DefaultFormats.type = DefaultFormats
 
