@@ -37,8 +37,8 @@ object JSONConsumer {
         */
 
         /*
-          1. Retrieve the message from each record
-          2. Create a case class that matches the message structure
+          1. Retrieve and print the message from each record
+          2. Define a case class,  at the top of this file, that matches the message structure ( https://docs.scala-lang.org/tour/case-classes.html )
           3. Parse the JSON string into a scala case class ( https://alvinalexander.com/scala/simple-scala-lift-json-example-lift-framework/ )
          */
 
