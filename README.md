@@ -1,5 +1,9 @@
 # Kafka-HWE
 
+## Opening the Project
+1. Open the pom.xml in Intellij
+2. Select “Open as Project”
+
 ## Studio Instructions
 
 ### Describe the topic "question-1"
