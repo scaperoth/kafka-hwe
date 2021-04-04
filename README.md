@@ -23,6 +23,7 @@ A topic exists called "question-1". Use the command line to describe the topic "
 
 - How many partitions does it have?
 - What is the replication factor?
+- Hint: There is an example describe command in the `CLICommands.md`
 
 ### Create a topic "question-2"
 
