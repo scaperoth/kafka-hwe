@@ -1,10 +1,21 @@
 # Kafka-HWE
 
 ## Opening the Project
+
 1. Open the pom.xml in Intellij
 2. Select “Open as Project”
 
 ## Studio Instructions
+
+### Set the bootstrap-server environment variable
+
+#### Windows
+
+SET BOOTSTRAP_SERVERS=35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092
+
+#### Linux/Mac
+
+export BOOTSTRAP_SERVER=35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092
 
 ### Describe the topic "question-1"
 
