@@ -8,10 +8,13 @@ import java.time.Duration
 import java.util
 import java.util.{Properties, UUID}
 
+import net.liftweb.json._
+case class User(name: String, phone: String, company: String, state: String, age: Int, house: String)
+
 object JSONConsumer {
 
   val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
-  val Topic: String = "change-me"
+  val Topic: String = "question-5"
   implicit val formats: DefaultFormats.type = DefaultFormats
 
   def main(args: Array[String]): Unit = {
@@ -43,7 +46,10 @@ object JSONConsumer {
          */
 
         val message = record.value()
+        val json = parse(message)
+        val newUser = json.extract[User]
         println(s"Message Received: $message")
+        println(s"Parsed into user: ${newUser}")
       })
     }
   }

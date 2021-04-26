@@ -8,13 +8,13 @@ import java.util.Properties
 object SimpleProducer {
   // Set constants
   val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
-  val Topic: String = "change-me"
+  val Topic: String = "question-4"
 
   def main(args: Array[String]): Unit = {
     // Create Kafka Producer
     val properties = getProperties(BootstrapServer)
     val producer = new KafkaProducer[String, String](properties)
-    val messageToSend = "Change Me"
+    val messageToSend = "Scaperoth"
 
     val record = new ProducerRecord[String, String](Topic, messageToSend)
 

@@ -8,8 +8,8 @@ import java.time.Duration
 import java.util.{Properties, UUID, Arrays}
 
 object SimpleConsumer {
-  val BootstrapServer = "35.239.241.212:9092,35.239.230.132:9092,34.69.66.216:9092"
-  val Topic: String = "change-me"
+  val BootstrapServer = sys.env.get("BOOTSTRAP_SERVERS").getOrElse("")
+  val Topic: String = "question-4"
 
   implicit val formats: DefaultFormats.type = DefaultFormats
 
